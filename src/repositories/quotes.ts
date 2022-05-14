@@ -3,26 +3,31 @@ import { MongoClient } from "mongodb";
 export interface QuoteDto {
   id: string;
   text: string;
+  rawText: string;
   source: string;
 }
 
-type QuoteStorage = Pick<QuoteDto, "text" | "source"> & {
+export type QuoteApiResponse = Omit<QuoteDto, "rawText">;
+
+export type QuoteStorage = Pick<QuoteDto, "rawText" | "text" | "source"> & {
   clickToTweetId: string;
 };
 
 export class QuoteRepository {
   constructor(private client: MongoClient) {}
 
-  async create(quote: QuoteDto): Promise<string> {
+  async create(quote: Required<QuoteDto>): Promise<string> {
     const collection = await this.getCollection();
-    const newQuote = await collection.insertOne({
-      ...quote,
+    await collection.insertOne({
+      text: quote.text,
+      rawText: quote.rawText,
+      source: quote.source,
       clickToTweetId: quote.id,
     });
-    return newQuote.insertedId.toString();
+    return quote.id;
   }
 
-  async getRandom(): Promise<QuoteDto> {
+  async getRandom(): Promise<QuoteApiResponse> {
     const collection = await this.getCollection();
     const [randomQuote] = await collection
       .aggregate<QuoteDto>([
@@ -33,7 +38,7 @@ export class QuoteRepository {
     return randomQuote;
   }
 
-  async getById(id: string): Promise<QuoteDto> {
+  async getById(id: string): Promise<QuoteApiResponse> {
     const collection = await this.getCollection();
     const [quote] = await collection
       .aggregate<QuoteDto>([
