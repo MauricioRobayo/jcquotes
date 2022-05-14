@@ -1,7 +1,13 @@
 import dotenv from "dotenv";
 import { getQuotes } from "jcscraper";
 import { Quote } from "jcscraper/dist/getQuotes";
-import { MongoClient } from "mongodb";
+import {
+  InsertManyResult,
+  MongoClient,
+  WriteError,
+  MongoError,
+  MongoBulkWriteError,
+} from "mongodb";
 import path from "path";
 
 dotenv.config({
@@ -10,17 +16,28 @@ dotenv.config({
 
 const mongodbUri = process.env.MONGODB_URI ?? "";
 
-console.log(mongodbUri);
-
 const client = new MongoClient(mongodbUri);
 
-async function seed() {
+async function seed(): Promise<void> {
   const quotes = await getQuotes();
 
   await client.connect();
-  await client.db("jc-quotes").collection<Quote>("quotes").insertMany(quotes);
+  const collection = client.db("jc-quotes").collection<Quote>("quotes");
+  collection.createIndex("clickToTweetId", { unique: true });
 
-  console.log("Done!");
+  try {
+    const result = await collection.insertMany(quotes);
+    console.log(`Done! Inserted ${result.insertedCount} quotes.`);
+    client.close();
+  } catch (err) {
+    client.close();
+    if (err instanceof MongoBulkWriteError) {
+      console.log(err.message);
+      return;
+    }
+
+    throw err;
+  }
 }
 
 seed();

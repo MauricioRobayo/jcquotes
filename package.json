@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "seed": "ts-node scripts/seed.ts"
   },
   "dependencies": {
     "mongodb": "^4.5.0",
@@ -22,7 +23,8 @@
     "dotenv": "^16.0.0",
     "eslint": "8.15.0",
     "eslint-config-next": "12.1.6",
-    "jcscraper": "^0.0.5",
+    "jcscraper": "^0.0.8",
+    "ts-node": "^10.7.0",
     "typescript": "4.6.4"
   }
 }
