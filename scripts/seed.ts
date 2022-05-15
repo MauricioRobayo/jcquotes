@@ -1,13 +1,7 @@
 import dotenv from "dotenv";
 import { getQuotes } from "jcscraper";
 import { Quote } from "jcscraper/dist/getQuotes";
-import {
-  InsertManyResult,
-  MongoClient,
-  WriteError,
-  MongoError,
-  MongoBulkWriteError,
-} from "mongodb";
+import { MongoBulkWriteError, MongoClient } from "mongodb";
 import path from "path";
 
 dotenv.config({
