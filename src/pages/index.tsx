@@ -14,7 +14,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <h1>James Clear Quotes</h1>
+        <h1 className="text-3xl font-bold">James Clear Quotes</h1>
       </main>
     </div>
   );
