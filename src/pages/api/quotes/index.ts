@@ -42,18 +42,16 @@ export default async function handler(
       return;
     }
 
-    if (err instanceof MongoError) {
-      if (err.code === 11000) {
-        res.status(409).json({
-          message: `Quote id '${req.body.id}' already exists. Cannot duplicate it.`,
-        });
-        return;
-      }
+    if (err instanceof MongoError && err.code === 11000) {
+      res.status(409).json({
+        message: `Quote id '${req.body.id}' already exists. Cannot duplicate it.`,
+      });
+      return;
     }
 
     console.log(JSON.stringify(err, null, 2));
     res.status(500).json({
-      message: "Something went wrong",
+      message: "Something unexpected went wrong!",
     });
     return;
   }
