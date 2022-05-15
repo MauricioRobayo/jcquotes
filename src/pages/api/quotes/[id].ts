@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { typeToFlattenedError } from "zod";
-import { QuoteDto } from "../../../repositories/quotes";
+import { QuoteApiResponse } from "../../../repositories/quotes";
 import { quoteService } from "../../../services/quotes";
 
 interface ErrorResponse {
@@ -10,7 +10,7 @@ interface ErrorResponse {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<QuoteDto | ErrorResponse>
+  res: NextApiResponse<QuoteApiResponse | ErrorResponse>
 ) {
   const { id } = req.query;
   const quote = await quoteService.getById(id as string);

@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { typeToFlattenedError, z, ZodError } from "zod";
-import { QuoteDto } from "../../../repositories/quotes";
+import { typeToFlattenedError } from "zod";
+import { QuoteApiResponse } from "../../../repositories/quotes";
 import { quoteService } from "../../../services/quotes";
 
 interface ErrorResponse {
@@ -10,7 +10,7 @@ interface ErrorResponse {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<QuoteDto | ErrorResponse>
+  res: NextApiResponse<QuoteApiResponse | ErrorResponse>
 ) {
   const randomQuote = await quoteService.getRandom();
   res.json(randomQuote);
