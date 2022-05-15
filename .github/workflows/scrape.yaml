@@ -1,0 +1,27 @@
+name: scrape
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 23 * * 41"
+
+jobs:
+  gospel:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          version: "16"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run bot
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+          API_URL: ${{ secrets.API_URL}}
+        run: npm run scrape
