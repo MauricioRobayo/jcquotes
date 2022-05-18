@@ -62,10 +62,7 @@ async function main() {
 
         const { data } = await axios.post<{ id: string }>(
           `${process.env.API_URL}?key=${process.env.API_KEY}`,
-          {
-            ...quote,
-            id: quote.clickToTweetId,
-          }
+          quote
         );
         return data;
       } catch (err) {

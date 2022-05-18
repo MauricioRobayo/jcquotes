@@ -51,7 +51,7 @@ export default async function handler(
 
     if (err instanceof MongoError && err.code === 11000) {
       res.status(409).json({
-        message: `Quote id '${req.body.id}' already exists. Cannot duplicate it.`,
+        message: `Quote id '${req.body.clickToTweetId}' already exists. Cannot duplicate it.`,
       });
       return;
     }
