@@ -7,6 +7,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.link {
+a {
   @apply font-bold underline underline-offset-4 decoration-gold-1 decoration-4;
 }

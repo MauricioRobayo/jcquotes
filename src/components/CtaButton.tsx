@@ -12,9 +12,7 @@ const CtaButton = ({
 }: CtaButtonProps) => {
   return (
     <button
-      className={
-        isLoading ? "animate-spin text-gold-1 pointer-events-none" : ""
-      }
+      className={isLoading ? "spin text-gold-1 pointer-events-none" : ""}
       onClick={onClick}
       disabled={isLoading}
     >
