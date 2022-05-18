@@ -1,10 +1,17 @@
 import { MongoError } from "mongodb";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { typeToFlattenedError, z, ZodError } from "zod";
+import { z, ZodError, ZodIssue } from "zod";
 import { quoteService } from "../../../services/quotes";
 
+const Quote = z.object({
+  rawText: z.string(),
+  text: z.string(),
+  source: z.string(),
+  clickToTweetId: z.string(),
+});
+
 interface ErrorResponse {
-  message: string | typeToFlattenedError<any | string>;
+  message: string | ZodIssue[];
 }
 
 interface CreatedResponse {
@@ -17,19 +24,19 @@ export default async function handler(
 ) {
   if (req.method !== "POST") {
     res.status(404).json({ message: "Not Found" });
+    return;
   }
 
   const apiKey = req.query.key;
 
   if (!apiKey || apiKey !== process.env.API_KEY) {
-    res.status(401).json({
-      message: "Unauthorized",
-    });
+    res.status(401).json({ message: "Unauthorized" });
     return;
   }
 
   try {
-    const newQuoteId = await quoteService.create(req.body);
+    const quote = Quote.parse(req.body);
+    const newQuoteId = await quoteService.create(quote);
     res.status(201).json({
       id: newQuoteId,
     });
@@ -37,7 +44,7 @@ export default async function handler(
   } catch (err) {
     if (err instanceof ZodError) {
       res.status(400).json({
-        message: err.flatten(),
+        message: err.issues,
       });
       return;
     }

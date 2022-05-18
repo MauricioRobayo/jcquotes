@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.link {
+  @apply font-bold underline underline-offset-4 decoration-yellow-900/20 text-yellow-900 decoration-4;
+}

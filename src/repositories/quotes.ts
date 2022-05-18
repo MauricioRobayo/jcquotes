@@ -1,56 +1,50 @@
+import type { QuoteType } from "jcscraper";
 import { MongoClient } from "mongodb";
 
-export interface QuoteDto {
-  id: string;
-  text: string;
-  rawText: string;
-  source: string;
-}
-
-export type QuoteApiResponse = Omit<QuoteDto, "rawText">;
-
-export type QuoteStorage = Pick<QuoteDto, "rawText" | "text" | "source"> & {
-  clickToTweetId: string;
-};
+const defaultProjection = { _id: 0 };
 
 export class QuoteRepository {
   constructor(private client: MongoClient) {}
 
-  async create(quote: Required<QuoteDto>): Promise<string> {
+  async create(quote: QuoteType): Promise<string> {
     const collection = await this.getCollection();
-    await collection.insertOne({
-      text: quote.text,
-      rawText: quote.rawText,
-      source: quote.source,
-      clickToTweetId: quote.id,
-    });
-    return quote.id;
+    await collection.insertOne(quote);
+    return quote.clickToTweetId;
   }
 
-  async getRandom(): Promise<QuoteApiResponse> {
+  async getRandom(): Promise<QuoteType> {
     const collection = await this.getCollection();
     const [randomQuote] = await collection
-      .aggregate<QuoteDto>([
+      .aggregate<QuoteType>([
         { $sample: { size: 1 } },
-        { $project: { _id: 0, id: "$clickToTweetId", text: 1, source: 1 } },
+        {
+          $project: defaultProjection,
+        },
       ])
       .toArray();
     return randomQuote;
   }
 
-  async getById(id: string): Promise<QuoteApiResponse> {
+  async getById(id: string): Promise<QuoteType | null> {
     const collection = await this.getCollection();
-    const [quote] = await collection
-      .aggregate<QuoteDto>([
+    const quotes = await collection
+      .aggregate<QuoteType>([
         { $match: { clickToTweetId: id } },
-        { $project: { _id: 0, id: "$clickToTweetId", text: 1, source: 1 } },
+        {
+          $project: defaultProjection,
+        },
       ])
       .toArray();
-    return quote;
+
+    if (quotes.length === 0) {
+      return null;
+    }
+
+    return quotes[0];
   }
 
   private async getCollection() {
     await this.client.connect();
-    return this.client.db("jc-quotes").collection<QuoteStorage>("quotes");
+    return this.client.db("jc-quotes").collection<QuoteType>("quotes");
   }
 }
