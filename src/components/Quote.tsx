@@ -26,7 +26,7 @@ const Quote = ({ id }: { id: string }) => {
     if (quoteQuery.data) {
       window.location.assign(
         `https://twitter.com/intent/tweet?text=${encodeURIComponent(
-          quoteQuery.data.text
+          quoteQuery.data.rawText
         )}`
       );
     }
