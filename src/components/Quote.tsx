@@ -9,7 +9,10 @@ import QuoteContainer from "./QuoteContainer";
 import styles from "./Quote.module.css";
 import QuoteLoader from "./QuoteLoader";
 
-const Quote = ({ id }: { id: string }) => {
+type QuoteProps = {
+  id: string;
+};
+const Quote = ({ id }: QuoteProps) => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const randomQuoteQuery = useRandomQuote();

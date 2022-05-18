@@ -14,7 +14,7 @@ export function useRandomQuote() {
       return data;
     },
     {
-      refetchOnWindowFocus: false,
+      staleTime: Infinity,
       onSuccess: (data) => {
         queryClient.setQueryData(["quote", data.clickToTweetId], data);
       },
