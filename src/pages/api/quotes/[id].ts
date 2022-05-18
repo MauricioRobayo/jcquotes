@@ -2,11 +2,14 @@ import type { QuoteType } from "jcscraper";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { z, ZodError } from "zod";
 import { quoteService } from "../../../services/quotes";
+import NextCors from "nextjs-cors";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<QuoteType | { message: string }>
 ) {
+  await NextCors(req, res, { methods: "GET" });
+
   const Query = z.object({
     id: z.string(),
   });
