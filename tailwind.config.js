@@ -8,6 +8,10 @@ module.exports = {
       "gold-1": "#ece8df",
       "gold-2": "#322401",
     },
+    fontFamily: {
+      sans: ["'Nunito Sans', sans-serif"],
+      serif: ["'Crimson Pro', serif"],
+    },
     extend: {},
   },
   plugins: [],
