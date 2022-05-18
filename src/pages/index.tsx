@@ -6,7 +6,7 @@ import { useRandomQuote } from "../hooks/useRandomQuote";
 
 const Home: NextPage = () => {
   const router = useRouter();
-  const { data, isLoading, isError, isIdle } = useRandomQuote();
+  const { data, isError } = useRandomQuote();
 
   useEffect(() => {
     if (data) {
