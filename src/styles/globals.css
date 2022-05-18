@@ -1,7 +1,12 @@
 @tailwind base;
+@layer base {
+  html {
+    @apply text-gold-2;
+  }
+}
 @tailwind components;
 @tailwind utilities;
 
 .link {
-  @apply font-bold underline underline-offset-4 decoration-yellow-900/20 text-yellow-900 decoration-4;
+  @apply font-bold underline underline-offset-4 decoration-gold-1 decoration-4;
 }

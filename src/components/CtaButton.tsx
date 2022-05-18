@@ -1,4 +1,3 @@
-import cn from "classnames";
 import { ReactNode } from "react";
 
 export type CtaButtonProps = {
@@ -13,10 +12,9 @@ const CtaButton = ({
 }: CtaButtonProps) => {
   return (
     <button
-      className={cn(
-        "text-yellow-900",
-        isLoading && "animate-spin text-yellow-900/20 pointer-events-none"
-      )}
+      className={
+        isLoading ? "animate-spin text-gold-1 pointer-events-none" : ""
+      }
       onClick={onClick}
       disabled={isLoading}
     >
