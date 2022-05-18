@@ -1,12 +1,13 @@
 import ErrorPage from "next/error";
 import { useRouter } from "next/router";
+import { useMemo } from "react";
 import { VscRefresh, VscTwitter } from "react-icons/vsc";
 import { useQueryClient } from "react-query";
 import { useQuote } from "../hooks/useQuote";
 import { useRandomQuote } from "../hooks/useRandomQuote";
 import CtaButton, { CtaButtonProps } from "./CtaButton";
-import QuoteContainer from "./QuoteContainer";
 import styles from "./Quote.module.css";
+import QuoteContainer from "./QuoteContainer";
 import QuoteLoader from "./QuoteLoader";
 
 type QuoteProps = {
@@ -17,6 +18,15 @@ const Quote = ({ id }: QuoteProps) => {
   const queryClient = useQueryClient();
   const randomQuoteQuery = useRandomQuote();
   const quoteQuery = useQuote(id);
+
+  const quoteDate = useMemo(() => {
+    if (quoteQuery.data) {
+      const date = Date.parse(quoteQuery.data.source.replace(/.*\//, ""));
+      return new Intl.DateTimeFormat("en-US", {
+        dateStyle: "long",
+      }).format(date);
+    }
+  }, [quoteQuery]);
 
   const refresh = () => {
     if (randomQuoteQuery.data) {
@@ -65,10 +75,10 @@ const Quote = ({ id }: QuoteProps) => {
             <p key={i}>{p}</p>
           ))}
         </blockquote>
-        <figcaption className="text-sm p-4">
-          <cite className="not-italic flex justify-between">
+        <figcaption>
+          <cite className="p-4 text-xs flex justify-between">
             <a className="link" href={quoteQuery.data.source}>
-              {quoteQuery.data.source.replace("https://jamesclear.com/", "")}
+              {quoteDate}
             </a>
             <div className="flex items-center justify-center gap-4">
               {ctaButtons.map(
