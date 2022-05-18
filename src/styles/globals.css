@@ -1,12 +1,12 @@
 @tailwind base;
 @layer base {
-  html {
-    @apply text-gold-2;
+  body {
+    @apply text-gold-2 dark:text-gold-0 dark:bg-gold-4;
   }
 }
 @tailwind components;
 @tailwind utilities;
 
 a {
-  @apply font-bold underline underline-offset-4 decoration-gold-1 decoration-4;
+  @apply font-bold underline underline-offset-4 decoration-gold-1 dark:decoration-gold-3 decoration-4;
 }
