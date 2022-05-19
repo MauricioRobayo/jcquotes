@@ -78,7 +78,7 @@ const Quote = ({ id }: QuoteProps) => {
         <figcaption>
           <cite className="p-4 text-sm flex justify-between">
             <a href={quoteQuery.data.source}>{quoteDate}</a>
-            <div className="flex items-center justify-center gap-4">
+            <div className="flex items-center justify-center gap-6">
               {ctaButtons.map(
                 ({ children, onClick, key, isLoading = false }) => (
                   <CtaButton key={key} onClick={onClick} isLoading={isLoading}>
