@@ -50,7 +50,10 @@ const Quote = ({ id }: QuoteProps) => {
       children: <VscRefresh />,
       onClick: refresh,
       key: "refresh",
-      isLoading: randomQuoteQuery.isFetching,
+      disabled: randomQuoteQuery.isFetching,
+      className: randomQuoteQuery.isFetching
+        ? "animate-spin text-gold-1 dark:text-gold-3 pointer-events-none"
+        : "",
     },
     {
       children: <VscTwitter />,
@@ -79,13 +82,9 @@ const Quote = ({ id }: QuoteProps) => {
           <cite className="p-6 text-sm flex justify-between">
             <a href={quoteQuery.data.source}>{quoteDate}</a>
             <div className="flex items-center justify-center gap-6">
-              {ctaButtons.map(
-                ({ children, onClick, key, isLoading = false }) => (
-                  <CtaButton key={key} onClick={onClick} isLoading={isLoading}>
-                    {children}
-                  </CtaButton>
-                )
-              )}
+              {ctaButtons.map(({ key, ...props }) => (
+                <CtaButton key={key} {...props} />
+              ))}
             </div>
           </cite>
         </figcaption>

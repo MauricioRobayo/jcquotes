@@ -3,19 +3,17 @@ import { ReactNode } from "react";
 export type CtaButtonProps = {
   children: ReactNode;
   onClick: () => void;
-  isLoading?: boolean;
+  disabled?: boolean;
+  className?: string;
 };
 const CtaButton = ({
   children,
   onClick,
-  isLoading = false,
+  disabled = false,
+  className = "",
 }: CtaButtonProps) => {
   return (
-    <button
-      className={isLoading ? "spin text-gold-1 pointer-events-none" : ""}
-      onClick={onClick}
-      disabled={isLoading}
-    >
+    <button className={className} onClick={onClick} disabled={disabled}>
       {children}
     </button>
   );
