@@ -76,7 +76,7 @@ const Quote = ({ id }: QuoteProps) => {
           ))}
         </blockquote>
         <figcaption>
-          <cite className="p-4 text-sm flex justify-between">
+          <cite className="p-6 text-sm flex justify-between">
             <a href={quoteQuery.data.source}>{quoteDate}</a>
             <div className="flex items-center justify-center gap-6">
               {ctaButtons.map(
