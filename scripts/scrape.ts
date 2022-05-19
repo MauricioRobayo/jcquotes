@@ -55,7 +55,7 @@ async function main() {
 
         if ("error" in quote) {
           console.log(
-            `Could not get quote for clickToTweetId '${clickToTweetRef.id}'.`
+            `Could not get quote for clickToTweetId '${clickToTweetRef.id}'. ${quote.error}`
           );
           return;
         }
