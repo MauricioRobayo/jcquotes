@@ -1,10 +1,10 @@
-import styles from "./Quote.module.css";
+import Blockquote from "./Blockquote";
 import QuoteContainer from "./QuoteContainer";
 
 const QuoteLoader = () => {
   return (
     <QuoteContainer>
-      <div className={styles.quote}>
+      <Blockquote>
         <div className="animate-pulse flex space-x-4">
           <div className="flex-1 space-y-4 py-1">
             <div className="h-3 bg-gold-2/20 dark:bg-gold-1/20 rounded"></div>
@@ -15,7 +15,7 @@ const QuoteLoader = () => {
             <div className="h-3 bg-gold-2/20 dark:bg-gold-1/20 rounded"></div>
           </div>
         </div>
-      </div>
+      </Blockquote>
     </QuoteContainer>
   );
 };

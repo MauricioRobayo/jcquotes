@@ -5,8 +5,8 @@ import { VscRefresh, VscTwitter } from "react-icons/vsc";
 import { useQueryClient } from "react-query";
 import { useQuote } from "../hooks/useQuote";
 import { useRandomQuote } from "../hooks/useRandomQuote";
+import Blockquote from "./Blockquote";
 import CtaButton, { CtaButtonProps } from "./CtaButton";
-import styles from "./Quote.module.css";
 import QuoteContainer from "./QuoteContainer";
 import QuoteLoader from "./QuoteLoader";
 
@@ -73,11 +73,11 @@ const Quote = ({ id }: QuoteProps) => {
   return (
     <QuoteContainer>
       <figure>
-        <blockquote className={styles.quote}>
+        <Blockquote>
           {quoteQuery.data.text.split("\n").map((p, i) => (
             <p key={i}>{p}</p>
           ))}
-        </blockquote>
+        </Blockquote>
         <figcaption>
           <cite className="p-6 text-sm flex justify-between">
             <a href={quoteQuery.data.source}>{quoteDate}</a>
