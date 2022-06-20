@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import cn from "classnames";
+import cn from "clsx";
 
 type BlockquoteWrapperProps = {
   children: ReactNode;
