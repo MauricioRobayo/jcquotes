@@ -7,7 +7,7 @@ type CiteProps = {
 
 const Cite = ({ left, right }: CiteProps) => {
   return (
-    <cite className="p-6 text-sm flex justify-between">
+    <cite className="px-4 py-6 text-sm flex justify-between">
       {left}
       {right}
     </cite>
