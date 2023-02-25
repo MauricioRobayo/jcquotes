@@ -54,41 +54,27 @@ class QuoteService {
     }
   }
 
-  private async scrapeQuotes(date: Date) {
+  private async scrapeQuotes(date: Date): Promise<void> {
     const url = new URL(QuoteService.formatDate(date), newsletterBaseUrl).href;
-    try {
-      console.log(`Getting clickToTweetIds for '${url}' ...`);
-      const clickToTweetRefs = await scrapeClickToTweetRefs(url);
-      console.log(`Found ${clickToTweetRefs.length} clickToTweetRefs.`);
-      console.log(`Getting quotes...`);
-      const promises = clickToTweetRefs.map(async (clickToTweetRef) => {
-        try {
-          const quote = await scrapeQuote(clickToTweetRef);
+    console.log(`Getting clickToTweetIds for '${url}' ...`);
+    const clickToTweetRefs = await scrapeClickToTweetRefs(url);
+    console.log(`Found ${clickToTweetRefs.length} clickToTweetRefs.`);
+    console.log(`Getting quotes...`);
+    const promises = clickToTweetRefs.map(async (clickToTweetRef) => {
+      const quote = await scrapeQuote(clickToTweetRef);
 
-          if ("error" in quote) {
-            console.log(
-              `Could not get quote for clickToTweetId '${clickToTweetRef.id}'. ${quote.error}`
-            );
-            return;
-          }
-
-          return await this.create(quote);
-        } catch (err) {
-          if (axios.isAxiosError(err)) {
-            return err.response?.data;
-          }
-
-          throw err;
-        }
-      });
-
-      const postedQuotes = await Promise.all(promises);
-      console.dir(`Inserted ${postedQuotes.length} new quotes:`, postedQuotes);
-    } catch (err) {
-      if (axios.isAxiosError(err)) {
-        console.log(err.message);
+      if ("error" in quote) {
+        console.log(
+          `Could not get quote for clickToTweetId '${clickToTweetRef.id}'. ${quote.error}`
+        );
+        return;
       }
-    }
+
+      return await this.create(quote);
+    });
+
+    const postedQuotes = await Promise.all(promises);
+    console.dir(`Inserted ${postedQuotes.length} new quotes:`, postedQuotes);
   }
 
   static formatDate(date: Date): string {
