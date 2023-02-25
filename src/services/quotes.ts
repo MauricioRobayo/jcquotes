@@ -74,7 +74,10 @@ class QuoteService {
     });
 
     const postedQuotes = await Promise.all(promises);
-    console.dir(`Inserted ${postedQuotes.length} new quotes:`, postedQuotes);
+    console.log(
+      `Inserted ${postedQuotes.length} new quotes:`,
+      JSON.stringify(postedQuotes, null, 2)
+    );
   }
 
   static formatDate(date: Date): string {
