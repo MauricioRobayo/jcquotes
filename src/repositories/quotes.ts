@@ -27,20 +27,18 @@ export class QuoteRepository {
 
   async getById(id: string): Promise<QuoteType | null> {
     const collection = await this.getCollection();
-    const quotes = await collection
-      .aggregate<QuoteType>([
-        { $match: { clickToTweetId: id } },
-        {
-          $project: defaultProjection,
-        },
-      ])
-      .toArray();
+    return collection.findOne(
+      { clickToTweetId: id },
+      { projection: defaultProjection }
+    );
+  }
 
-    if (quotes.length === 0) {
-      return null;
-    }
-
-    return quotes[0];
+  async getLastOne(): Promise<QuoteType | null> {
+    const collection = await this.getCollection();
+    return collection.findOne(
+      {},
+      { sort: [["_id", "desc"]], projection: defaultProjection }
+    );
   }
 
   private async getCollection() {
