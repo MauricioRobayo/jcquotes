@@ -17,6 +17,7 @@ export default async function handler(
     return;
   }
 
+  console.log("Let's do it.");
   void quoteService.scrapeMissingQuotes();
   res.status(201).json({ message: "Job created." });
 }
