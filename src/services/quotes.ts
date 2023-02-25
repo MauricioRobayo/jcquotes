@@ -4,7 +4,6 @@ import {
   scrapeClickToTweetRefs,
   scrapeQuote,
 } from "jcscraper";
-import { MongoClient } from "mongodb";
 import { QuoteRepository } from "../repositories/quotes";
 
 const dateFormatter = new Intl.DateTimeFormat("en-US", {
@@ -13,9 +12,7 @@ const dateFormatter = new Intl.DateTimeFormat("en-US", {
   year: "numeric",
   timeZone: "UTC",
 });
-const quoteRepository = new QuoteRepository(
-  new MongoClient(process.env.MONGODB_URI ?? "")
-);
+const quoteRepository = new QuoteRepository();
 
 class QuoteService {
   constructor(private quoteRepository: QuoteRepository) {}
