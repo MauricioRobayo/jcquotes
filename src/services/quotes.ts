@@ -32,12 +32,13 @@ class QuoteService {
     return this.quoteRepository.getRandom();
   }
 
-  async scrapeMissingQuotes() {
+  async scrapeNewQuotes() {
     const THURSDAY = 4;
     const lastQuote = await this.quoteRepository.getLastOne();
     if (!lastQuote) {
       return null;
     }
+    console.log("lastQuote:", JSON.stringify(lastQuote, null, 0));
     const today = new Date();
     const date = new Date(lastQuote.source.replace(/.*\//g, ""));
     if (Number.isNaN(date.getTime())) {
@@ -46,6 +47,7 @@ class QuoteService {
     while (date < today) {
       date.setUTCDate(date.getUTCDate() + 1);
       if (date.getUTCDay() === THURSDAY) {
+        console.log("starting process for quotes from", date.toISOString());
         // do it sequentially to avoid overloading James Clear server with
         // multiple requests in case que have many missing dates to fill in
         await this.scrapeQuotes(date);
