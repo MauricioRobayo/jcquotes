@@ -4,7 +4,7 @@ import {
   scrapeClickToTweetRefs,
   scrapeQuote,
 } from "jcscraper";
-import { QuoteRepository } from "../repositories/quotes";
+import { QuoteRepository, quoteRepository } from "../repositories/quotes";
 
 const dateFormatter = new Intl.DateTimeFormat("en-US", {
   day: "numeric",
@@ -12,7 +12,6 @@ const dateFormatter = new Intl.DateTimeFormat("en-US", {
   year: "numeric",
   timeZone: "UTC",
 });
-const quoteRepository = new QuoteRepository();
 
 class QuoteService {
   constructor(private quoteRepository: QuoteRepository) {}

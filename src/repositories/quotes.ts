@@ -4,10 +4,8 @@ import { Collection, MongoClient } from "mongodb";
 const defaultProjection = { _id: 0 };
 
 export class QuoteRepository {
-  private readonly client: MongoClient;
   private readonly collection: Collection<QuoteType>;
-  constructor() {
-    this.client = new MongoClient(process.env.MONGODB_URI ?? "");
+  constructor(private readonly client: MongoClient) {
     this.collection = this.client
       .db("jc-quotes")
       .collection<QuoteType>("quotes");
@@ -44,3 +42,7 @@ export class QuoteRepository {
     );
   }
 }
+
+export const quoteRepository = new QuoteRepository(
+  new MongoClient(process.env.MONGODB_URI ?? "")
+);
