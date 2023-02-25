@@ -17,7 +17,10 @@ export default async function handler(
     return;
   }
 
-  console.log("Let's do it.");
-  await quoteService.scrapeNewQuotes();
+  // The fire-and-forget pattern is not supported by Vercel
+  // functions. But if we await for it the execution time limit
+  // is just 10s, so more often than not this is going to timeout
+  // if awaited. Doing this via script.
+  void quoteService.scrapeNewQuotes();
   res.status(201);
 }
