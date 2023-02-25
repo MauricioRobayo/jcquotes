@@ -11,4 +11,8 @@ jobs:
 
     steps:
       - name: Scrape
-        run: 'curl --request POST "${{ secrets.API_URL}}" --header "Authorization: Bearer abc"'
+        run: |
+          curl \
+            --request POST \
+            --url '${{ secrets.API_URL}}' \
+            --header 'Authorization: Bearer ${{ secrets.API_KEY }}'
