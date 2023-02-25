@@ -18,6 +18,6 @@ export default async function handler(
   }
 
   console.log("Let's do it.");
-  void quoteService.scrapeNewQuotes();
-  res.status(201).json({ message: "Job created." });
+  await quoteService.scrapeNewQuotes();
+  res.status(201);
 }
