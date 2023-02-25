@@ -12,5 +12,6 @@ export function useQuote(id: string) {
 
   return useQuery(["quote", id], fetchQuote, {
     staleTime: Infinity,
+    enabled: Boolean(id),
   });
 }

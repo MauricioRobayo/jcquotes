@@ -12,11 +12,13 @@ import { useRandomQuote } from "../hooks/useRandomQuote";
 
 const QuotePage = () => {
   const router = useRouter();
-  const id = router.query.id as string;
+  const {
+    query: { id },
+  } = router;
   const queryClient = useQueryClient();
 
   const randomQuoteQuery = useRandomQuote();
-  const quoteQuery = useQuote(id);
+  const quoteQuery = useQuote(typeof id === "string" ? id : "");
 
   const quoteDate = useMemo(() => {
     if (quoteQuery.data) {
