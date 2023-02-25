@@ -6,7 +6,7 @@ import NextCors from "nextjs-cors";
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<QuoteType>
+  res: NextApiResponse<QuoteType | { message: string }>
 ) {
   await NextCors(req, res, { methods: "GET" });
 
@@ -18,7 +18,7 @@ export default async function handler(
     const { id } = Query.parse(req.query);
     const quote = await quoteService.getById(id);
     if (quote === null) {
-      res.status(404).end();
+      res.status(404).send({ message: "Not found" });
       return;
     }
 
