@@ -1,4 +1,4 @@
-name: scrape
+name: scraper
 
 on:
   workflow_dispatch:
@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: "16"
           cache: "pnpm"
-      - name: Scrape
+      - name: Scrapes
         env:
           API_KEY: ${{ secrets.API_KEY }}
           API_URL: ${{ secrets.API_URL}}
