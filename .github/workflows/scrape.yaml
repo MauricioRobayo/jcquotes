@@ -23,4 +23,6 @@ jobs:
           API_KEY: ${{ secrets.API_KEY }}
           API_URL: ${{ secrets.API_URL}}
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
-        run: npm run scrape
+        run: |
+          pmpm install
+          pnpm run scrape
