@@ -16,6 +16,10 @@ const dateFormatter = new Intl.DateTimeFormat("en-US", {
 class QuoteService {
   constructor(private quoteRepository: QuoteRepository) {}
 
+  getLatest(): Promise<QuoteType | null> {
+    return this.quoteRepository.getLatest();
+  }
+
   create(quote: QuoteType): Promise<string> {
     return this.quoteRepository.create(quote);
   }
@@ -30,7 +34,7 @@ class QuoteService {
 
   async scrapeNewQuotes() {
     const THURSDAY = 4;
-    const lastQuote = await this.quoteRepository.getLastOne();
+    const lastQuote = await this.quoteRepository.getLatest();
     if (!lastQuote) {
       return null;
     }

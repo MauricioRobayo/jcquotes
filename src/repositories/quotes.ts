@@ -35,7 +35,7 @@ export class QuoteRepository {
     );
   }
 
-  async getLastOne(): Promise<QuoteType | null> {
+  async getLatest(): Promise<QuoteType | null> {
     return this.collection.findOne(
       {},
       { sort: [["_id", "desc"]], projection: defaultProjection }
