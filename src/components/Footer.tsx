@@ -1,3 +1,5 @@
+import { Status } from "./Status";
+
 const Footer = () => {
   return (
     <div className="text-sm flex flex-col gap-4 items-center p-4">
@@ -9,6 +11,7 @@ const Footer = () => {
         <a href="https://github.com/MauricioRobayo/jcquotes">open source</a>{" "}
         project.
       </p>
+      <Status />
     </div>
   );
 };
