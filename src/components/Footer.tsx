@@ -2,7 +2,7 @@ import { Status } from "./Status";
 
 const Footer = () => {
   return (
-    <div className="text-sm flex flex-col gap-4 items-center p-8">
+    <div className="text-sm flex flex-col gap-2 items-center p-8">
       <p>
         <a href={`${process.env.NEXT_PUBLIC_API_URL}/random`}>JSON API</a>
       </p>

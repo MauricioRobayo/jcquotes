@@ -8,7 +8,7 @@ export function Status() {
   const quotesStatusQuery = useQuotesStatus();
 
   return (
-    <div className="flex flex-col text-sm max-w-sm w-full mx-auto items-center">
+    <>
       <div className="flex gap-1 items-center">
         Quotes so far:{" "}
         {quotesStatusQuery.isIdle || quotesStatusQuery.isLoading ? (
@@ -38,6 +38,6 @@ export function Status() {
           </>
         )}
       </div>
-    </div>
+    </>
   );
 }
