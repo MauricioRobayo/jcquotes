@@ -1,11 +1,11 @@
+import axios from "axios";
 import {
   newsletterBaseUrl,
   QuoteType,
   scrapeClickToTweetRefs,
   scrapeQuote,
 } from "jcscraper";
-import { MongoClient } from "mongodb";
-import { QuoteRepository } from "../repositories/quotes";
+import { QuoteRepository, quoteRepository } from "../repositories/quotes";
 
 const dateFormatter = new Intl.DateTimeFormat("en-US", {
   day: "numeric",
@@ -13,12 +13,23 @@ const dateFormatter = new Intl.DateTimeFormat("en-US", {
   year: "numeric",
   timeZone: "UTC",
 });
-const quoteRepository = new QuoteRepository(
-  new MongoClient(process.env.MONGODB_URI ?? "")
-);
-
+export interface Status {
+  latestQuote: QuoteType | null;
+  totalQuotes: number;
+}
 class QuoteService {
   constructor(private quoteRepository: QuoteRepository) {}
+
+  async getStatus(): Promise<Status> {
+    const [latestQuote, quotesCount] = await Promise.all([
+      this.quoteRepository.getLatest(),
+      this.quoteRepository.getCount(),
+    ]);
+    return {
+      totalQuotes: quotesCount,
+      latestQuote,
+    };
+  }
 
   create(quote: QuoteType): Promise<string> {
     return this.quoteRepository.create(quote);
@@ -34,7 +45,7 @@ class QuoteService {
 
   async scrapeNewQuotes() {
     const THURSDAY = 4;
-    const lastQuote = await this.quoteRepository.getLastOne();
+    const lastQuote = await this.quoteRepository.getLatest();
     if (!lastQuote) {
       return null;
     }

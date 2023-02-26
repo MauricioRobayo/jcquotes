@@ -4,7 +4,7 @@ const Header = () => {
       <header className="mt-14 mb-6 space-y-2 flex flex-col justify-center items-center text-center">
         <h1 className="uppercase font-bold text-lg flex gap-1 align-top tracking-widest">
           James Clear{" "}
-          <span className="text-sm font-normal">
+          <span className="text-sm font-normal tracking-normal">
             <span
               style={{ display: "inline-block", transform: "scale(-1, 1)" }}
             >

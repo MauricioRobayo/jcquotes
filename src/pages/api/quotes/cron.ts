@@ -22,5 +22,5 @@ export default async function handler(
   // is just 10s, so more often than not this is going to timeout
   // if awaited. Doing this via script.
   void quoteService.scrapeNewQuotes();
-  res.status(201);
+  res.status(201).json({ message: "Job created." });
 }

@@ -18,7 +18,7 @@ export default async function handler(
     const { id } = Query.parse(req.query);
     const quote = await quoteService.getById(id);
     if (quote === null) {
-      res.status(404).json({ message: "Not Found" });
+      res.status(404).send({ message: "Not found" });
       return;
     }
 
