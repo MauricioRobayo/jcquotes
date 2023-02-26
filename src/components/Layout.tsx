@@ -21,10 +21,10 @@ const Layout = ({ children }: LayoutProps) => {
         </Head>
         <Header />
         <main className="flex justify-center">{children}</main>
+        <aside className="max-w-sm w-full mx-auto my-4">
+          <Status />
+        </aside>
       </div>
-      <aside className="max-w-sm w-full mx-auto my-4">
-        <Status />
-      </aside>
       <Footer />
     </div>
   );
