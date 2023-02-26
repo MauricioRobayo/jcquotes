@@ -10,7 +10,7 @@ export function Status() {
   return (
     <div className="flex flex-col text-sm">
       <div className="flex gap-1 items-center">
-        Total quotes so far:{" "}
+        Quotes so far:{" "}
         {quotesStatusQuery.isIdle || quotesStatusQuery.isLoading ? (
           <Spinner />
         ) : quotesStatusQuery.isError ? (
