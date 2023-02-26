@@ -1,3 +1,4 @@
+import axios from "axios";
 import {
   newsletterBaseUrl,
   QuoteType,
@@ -12,12 +13,22 @@ const dateFormatter = new Intl.DateTimeFormat("en-US", {
   year: "numeric",
   timeZone: "UTC",
 });
-
+export interface Status {
+  latestQuote: QuoteType | null;
+  totalQuotes: number;
+}
 class QuoteService {
   constructor(private quoteRepository: QuoteRepository) {}
 
-  getLatest(): Promise<QuoteType | null> {
-    return this.quoteRepository.getLatest();
+  async getStatus(): Promise<Status> {
+    const [latestQuote, quotesCount] = await Promise.all([
+      this.quoteRepository.getLatest(),
+      this.quoteRepository.getCount(),
+    ]);
+    return {
+      totalQuotes: quotesCount,
+      latestQuote,
+    };
   }
 
   create(quote: QuoteType): Promise<string> {

@@ -5,7 +5,13 @@ import type { AppProps } from "next/app";
 import Layout from "../components/Layout";
 import { GoogleAnalytics, usePagesViews } from "nextjs-google-analytics";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: Infinity,
+    },
+  },
+});
 
 function MyApp({ Component, pageProps }: AppProps) {
   usePagesViews();

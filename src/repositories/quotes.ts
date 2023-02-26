@@ -35,11 +35,15 @@ export class QuoteRepository {
     );
   }
 
-  async getLatest(): Promise<QuoteType | null> {
+  getLatest(): Promise<QuoteType | null> {
     return this.collection.findOne(
       {},
       { sort: [["_id", "desc"]], projection: defaultProjection }
     );
+  }
+
+  getCount() {
+    return this.collection.countDocuments();
   }
 }
 
