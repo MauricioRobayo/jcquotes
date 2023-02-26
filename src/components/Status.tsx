@@ -1,28 +1,41 @@
-import { useStatus } from "../hooks/useStatus";
-import { AiFillCheckCircle, AiFillCloseCircle } from "react-icons/ai";
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
+import { useQuotesStatus } from "../hooks/useQuotesStatus";
+import { useScraperStatus } from "../hooks/useScraperStatus";
+import { Spinner } from "./Spinner";
 
 export function Status() {
-  const { data, isIdle, isLoading, isError } = useStatus();
-  if (isIdle || isLoading) {
-    return <div>loading...</div>;
-  }
-
-  if (isError) {
-    return <div>Oh boy!</div>;
-  }
+  const scraperStatusQuery = useScraperStatus();
+  const quotesStatusQuery = useQuotesStatus();
 
   return (
     <div className="flex flex-col text-sm">
-      <div>Total quotes so far: {data.totalQuotes}</div>
       <div className="flex gap-1 items-center">
-        Last scraper:{" "}
-        <a href={data.scraperStatus.html_url} className="font-normal">
-          {new Date(data.scraperStatus.created_at).toISOString()}
-        </a>
-        {data.scraperStatus.conclusion === "success" ? (
-          <AiFillCheckCircle />
+        Total quotes so far:{" "}
+        {quotesStatusQuery.isIdle || quotesStatusQuery.isLoading ? (
+          <Spinner />
+        ) : quotesStatusQuery.isError ? (
+          "E!"
         ) : (
-          <AiFillCloseCircle />
+          quotesStatusQuery.data.totalQuotes
+        )}
+      </div>
+      <div className="flex gap-1 items-center">
+        Scraper:{" "}
+        {scraperStatusQuery.isIdle || scraperStatusQuery.isLoading ? (
+          <Spinner />
+        ) : scraperStatusQuery.isError ? (
+          "E!"
+        ) : (
+          <>
+            <a href={scraperStatusQuery.data.html_url} className="font-normal">
+              {new Date(scraperStatusQuery.data.created_at).toISOString()}
+            </a>
+            {scraperStatusQuery.data.conclusion === "success" ? (
+              <AiOutlineCheckCircle />
+            ) : (
+              <AiOutlineCloseCircle />
+            )}
+          </>
         )}
       </div>
     </div>
