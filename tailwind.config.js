@@ -1,3 +1,5 @@
+const { fontFamily } = require("tailwindcss/defaultTheme");
+
 module.exports = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx}",
@@ -11,11 +13,12 @@ module.exports = {
       "gold-3": "#504e49",
       "gold-4": "#38352e",
     },
-    fontFamily: {
-      sans: ["'Nunito Sans', sans-serif"],
-      serif: ["'Crimson Pro', serif"],
+    extend: {
+      fontFamily: {
+        sans: ["var(--font-nunito-sans)", ...fontFamily.sans],
+        serif: ["var(--font-crimson-pro)", ...fontFamily.sans],
+      },
     },
-    extend: {},
   },
   plugins: [],
 };
