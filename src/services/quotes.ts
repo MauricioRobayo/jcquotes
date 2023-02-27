@@ -1,4 +1,3 @@
-import axios from "axios";
 import {
   newsletterBaseUrl,
   QuoteType,
@@ -67,7 +66,8 @@ class QuoteService {
   }
 
   private async scrapeQuotes(date: Date): Promise<void> {
-    const url = new URL(QuoteService.formatDate(date), newsletterBaseUrl).href;
+    const baseUrl = newsletterBaseUrl.replace(/\/+$/, "");
+    const url = `${baseUrl}/${QuoteService.formatDate(date)}`;
     console.log(`Getting clickToTweetIds for '${url}' ...`);
     const clickToTweetRefs = await scrapeClickToTweetRefs(url);
     console.log(`Found ${clickToTweetRefs.length} clickToTweetRefs.`);

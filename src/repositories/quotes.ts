@@ -1,5 +1,11 @@
 import type { QuoteType } from "jcscraper";
-import { Collection, MongoClient } from "mongodb";
+import {
+  Collection,
+  Filter,
+  FindOptions,
+  MongoClient,
+  UpdateFilter,
+} from "mongodb";
 
 const defaultProjection = { _id: 0 };
 
@@ -9,6 +15,14 @@ export class QuoteRepository {
     this.collection = this.client
       .db("jc-quotes")
       .collection<QuoteType>("quotes");
+  }
+
+  update(filter: Filter<QuoteType>, update: UpdateFilter<QuoteType>) {
+    return this.collection.updateOne(filter, update);
+  }
+
+  find(filter: Filter<QuoteType>, options?: FindOptions) {
+    return this.collection.find(filter, options).toArray();
   }
 
   async create(quote: QuoteType): Promise<string> {

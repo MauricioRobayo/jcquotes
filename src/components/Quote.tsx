@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import Blockquote from "./Blockquote";
 import QuoteContainer from "./QuoteContainer";
 
-type Quote2Props = {
+type QuoteProps = {
   cite: ReactNode;
   children: ReactNode;
   quoteContainerClassName?: string;
@@ -13,7 +13,7 @@ const Quote = ({
   cite,
   quoteContainerClassName = "",
   blockQuoteClassName = "",
-}: Quote2Props) => {
+}: QuoteProps) => {
   return (
     <QuoteContainer className={quoteContainerClassName}>
       <figure>
