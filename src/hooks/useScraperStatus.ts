@@ -1,16 +1,21 @@
 import axios from "axios";
 import { useQuery } from "react-query";
+import { z } from "zod";
 
-interface ScraperStatus {
-  conclusion: "success" | "failure";
-  created_at: string;
-  html_url: string;
-}
+const scraperStatusSchema = z.object({
+  workflow_runs: z.array(
+    z.object({
+      conclusion: z.union([z.literal("success"), z.literal("failure")]),
+      create_at: z.string(),
+      html_url: z.string(),
+    })
+  ),
+});
 export function useScraperStatus() {
   return useQuery(["scraper", "status"], async () => {
-    const { data } = await axios.get<{ workflow_runs: ScraperStatus[] }>(
+    const { data } = await axios.get(
       "https://api.github.com/repos/MauricioRobayo/jcquotes/actions/workflows/scraper.yaml/runs"
     );
-    return data.workflow_runs[0];
+    return scraperStatusSchema.parse(data).workflow_runs[0];
   });
 }

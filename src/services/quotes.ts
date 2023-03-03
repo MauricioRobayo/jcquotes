@@ -1,6 +1,6 @@
 import {
   newsletterBaseUrl,
-  QuoteType,
+  Quote,
   scrapeClickToTweetRefs,
   scrapeQuote,
 } from "jcscraper";
@@ -13,7 +13,7 @@ const dateFormatter = new Intl.DateTimeFormat("en-US", {
   timeZone: "UTC",
 });
 export interface Status {
-  latestQuote: QuoteType | null;
+  latestQuote: Quote | null;
   totalQuotes: number;
 }
 class QuoteService {
@@ -30,15 +30,15 @@ class QuoteService {
     };
   }
 
-  create(quote: QuoteType): Promise<string> {
+  create(quote: Quote): Promise<string> {
     return this.quoteRepository.create(quote);
   }
 
-  getById(id: string): Promise<QuoteType | null> {
+  getById(id: string): Promise<Quote | null> {
     return this.quoteRepository.getById(id);
   }
 
-  getRandom(): Promise<QuoteType> {
+  getRandom(): Promise<Quote> {
     return this.quoteRepository.getRandom();
   }
 

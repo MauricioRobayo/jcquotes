@@ -1,20 +1,23 @@
 import axios from "axios";
-import { QuoteType } from "jcscraper";
+import { quoteSchema } from "jcscraper/dist/schema";
 import { useQuery, useQueryClient } from "react-query";
 
 export function useRandomQuote() {
   const queryClient = useQueryClient();
   return useQuery(
     ["quotes", "random"],
-    async (): Promise<QuoteType> => {
+    async () => {
       const { data } = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/random`
       );
-      return data;
+      return quoteSchema.parse(data);
     },
     {
       onSuccess: (data) => {
-        queryClient.setQueryData(["quote", data.clickToTweetId], data);
+        queryClient.setQueryData(
+          ["quote", "detail", data.clickToTweetId],
+          data
+        );
       },
     }
   );

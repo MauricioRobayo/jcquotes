@@ -10,7 +10,7 @@ specifiers:
   dotenv: ^16.0.0
   eslint: 8.15.0
   eslint-config-next: 12.1.6
-  jcscraper: ^0.0.13
+  jcscraper: ^0.0.16
   mongodb: ^4.5.0
   next: 13.2.1
   nextjs-cors: ^2.1.1
@@ -46,7 +46,7 @@ devDependencies:
   dotenv: 16.0.3
   eslint: 8.15.0
   eslint-config-next: 12.1.6_hiwxj7sftc46nwon7bstighycq
-  jcscraper: 0.0.13
+  jcscraper: 0.0.16
   postcss: 8.4.21
   tailwindcss: 3.2.7_aesdjsunmf4wiehhujt67my7tu
   ts-node: 10.9.1_laqv367ntbladgchwutjrnj4ky
@@ -2585,11 +2585,12 @@ packages:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
     dev: true
 
-  /jcscraper/0.0.13:
-    resolution: {integrity: sha512-Mq8BUbafgecCJzIGtJRNwqM4oiP9cqdGsK4/m8gnSIoue8UCZl/6H/Heo8MvBVXUXFDiw6dTlGMtNp6rmSUsNw==}
+  /jcscraper/0.0.16:
+    resolution: {integrity: sha512-yqT8Ys8okjG9TaUpkL1OmWZD+871G3oKtUHqQCO/VET0UCz6en4tEiZVOyi9TPkLCnttepMPqI9uduHlnP0kog==}
     dependencies:
       axios: 0.21.4
       cheerio: 1.0.0-rc.12
+      zod: 3.20.6
     transitivePeerDependencies:
       - debug
     dev: true
@@ -3666,4 +3667,3 @@ packages:
 
   /zod/3.20.6:
     resolution: {integrity: sha512-oyu0m54SGCtzh6EClBVqDDlAYRz4jrVtKwQ7ZnsEmMI9HnzuZFj8QFwAY1M5uniIYACdGvv0PBWPF2kO0aNofA==}
-    dev: false
