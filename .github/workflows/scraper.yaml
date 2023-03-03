@@ -6,7 +6,7 @@ on:
     - cron: "0 23 * * 4"
 
 jobs:
-  scrape:
+  scraper:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: "16"
           cache: "pnpm"
-      - name: Scrapes
+      - name: Scrape
         env:
           API_KEY: ${{ secrets.API_KEY }}
           API_URL: ${{ secrets.API_URL}}
