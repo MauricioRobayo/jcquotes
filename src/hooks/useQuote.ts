@@ -9,7 +9,7 @@ export function useQuote(id: string) {
     );
     return data;
   };
-  return useQuery(["quote", id], fetchQuote, {
+  return useQuery(["quote", "details", id], fetchQuote, {
     enabled: Boolean(id),
   });
 }
