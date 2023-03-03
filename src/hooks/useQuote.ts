@@ -1,6 +1,6 @@
 import axios from "axios";
 import type { QuoteType } from "jcscraper";
-import { useQuery, useQueryClient } from "react-query";
+import { useQuery } from "react-query";
 
 export function useQuote(id: string) {
   const fetchQuote = async () => {
