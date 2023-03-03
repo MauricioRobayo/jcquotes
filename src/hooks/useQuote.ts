@@ -1,6 +1,7 @@
 import axios from "axios";
 import { quoteSchema } from "jcscraper/dist/schema";
 import { useQuery } from "react-query";
+import { quoteKeys } from "./quote-keys";
 
 export function useQuote(id: string) {
   const fetchQuote = async () => {
@@ -9,7 +10,7 @@ export function useQuote(id: string) {
     );
     return quoteSchema.parse(data);
   };
-  return useQuery(["quote", "detail", id], fetchQuote, {
-    enabled: Boolean(id),
+  return useQuery(quoteKeys.details(id), fetchQuote, {
+    enabled: id !== "",
   });
 }
