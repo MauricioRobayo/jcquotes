@@ -6,11 +6,10 @@ export function useRandomQuote() {
   const queryClient = useQueryClient();
   return useQuery(
     "random",
-    async () => {
-      const { data } = await axios.get<QuoteType>(
+    async (): Promise<QuoteType> => {
+      const { data } = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/random`
       );
-
       return data;
     },
     {

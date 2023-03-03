@@ -1,5 +1,4 @@
 import axios from "axios";
-import { QuoteType } from "jcscraper";
 import { useQuery } from "react-query";
 import { Status } from "../services/quotes";
 
