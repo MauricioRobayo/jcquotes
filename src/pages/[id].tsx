@@ -11,15 +11,14 @@ import { useQuote } from "../hooks/useQuote";
 import { useRandomQuote } from "../hooks/useRandomQuote";
 
 const QuotePage = () => {
+  console.log("rendering...");
   const router = useRouter();
   const {
     query: { id },
   } = router;
   const queryClient = useQueryClient();
-
   const randomQuoteQuery = useRandomQuote();
   const quoteQuery = useQuote(typeof id === "string" ? id : "");
-
   const quoteDate = useMemo(() => {
     if (quoteQuery.data) {
       const date = Date.parse(quoteQuery.data.source.replace(/.*\//, ""));
@@ -28,14 +27,12 @@ const QuotePage = () => {
       }).format(date);
     }
   }, [quoteQuery]);
-
   const refresh = () => {
     if (randomQuoteQuery.data) {
       router.push(`/${randomQuoteQuery.data.clickToTweetId}`);
       queryClient.invalidateQueries("random");
     }
   };
-
   const tweet = () => {
     if (quoteQuery.data) {
       window.location.assign(

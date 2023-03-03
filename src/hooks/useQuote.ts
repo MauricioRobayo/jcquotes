@@ -1,6 +1,6 @@
 import axios from "axios";
 import type { QuoteType } from "jcscraper";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 
 export function useQuote(id: string) {
   const fetchQuote = async () => {
@@ -9,7 +9,6 @@ export function useQuote(id: string) {
     );
     return data;
   };
-
   return useQuery(["quote", id], fetchQuote, {
     enabled: Boolean(id),
   });
