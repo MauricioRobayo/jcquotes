@@ -30,7 +30,7 @@ const QuotePage = () => {
   const refresh = () => {
     if (randomQuoteQuery.data) {
       router.push(`/${randomQuoteQuery.data.clickToTweetId}`);
-      queryClient.invalidateQueries("random");
+      queryClient.invalidateQueries(["quotes", "random"]);
     }
   };
   const tweet = () => {

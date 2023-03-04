@@ -1,6 +1,6 @@
 import axios from "axios";
 import dotenv from "dotenv";
-import { getQuotes, QuoteType } from "jcscraper";
+import { getQuotes, Quote } from "jcscraper";
 import { MongoClient } from "mongodb";
 import path from "path";
 
@@ -19,7 +19,7 @@ async function seed(): Promise<void> {
 
   const quotes = await getQuotes();
 
-  const chunk: QuoteType[] = [];
+  const chunk: Quote[] = [];
   const chunkSize = 20;
   for (const quote of quotes) {
     chunk.push(quote);
@@ -36,7 +36,7 @@ async function seed(): Promise<void> {
   }
 }
 
-async function postQuote(quote: QuoteType) {
+async function postQuote(quote: Quote) {
   try {
     const { data } = await axios.post<{ id: string }>(
       `${process.env.API_URL}?key=${process.env.API_KEY}`,

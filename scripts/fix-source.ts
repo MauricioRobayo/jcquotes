@@ -1,5 +1,5 @@
 import * as dotenv from "dotenv";
-import { QuoteType } from "jcscraper";
+import type { Quote } from "jcscraper";
 import path from "path";
 dotenv.config({ path: path.join(process.cwd(), ".env.development.local") });
 
@@ -9,7 +9,7 @@ const BATCH_SIZE = 50;
 async function main() {
   const docs = await quoteRepository.find({ source: { $not: /\/3-2-1\// } });
 
-  const batch: QuoteType[] = [];
+  const batch: Quote[] = [];
   for (const doc of docs) {
     batch.push(doc);
     if (batch.length >= BATCH_SIZE) {
@@ -28,7 +28,7 @@ async function main() {
   process.exit();
 }
 
-function processBatch(batch: QuoteType[]) {
+function processBatch(batch: Quote[]) {
   return Promise.all(
     batch.map((doc) =>
       quoteRepository.update(
