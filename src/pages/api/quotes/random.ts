@@ -1,11 +1,11 @@
-import type { QuoteType } from "jcscraper";
+import type { Quote } from "jcscraper";
 import type { NextApiRequest, NextApiResponse } from "next";
 import NextCors from "nextjs-cors";
 import { quoteService } from "../../../services/quotes";
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<QuoteType | { message: string }>
+  res: NextApiResponse<Quote | { message: string }>
 ) {
   await NextCors(req, res, { methods: "GET" });
 

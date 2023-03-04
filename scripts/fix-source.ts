@@ -28,7 +28,7 @@ async function main() {
   process.exit();
 }
 
-function processBatch(batch: QuoteType[]) {
+function processBatch(batch: Quote[]) {
   return Promise.all(
     batch.map((doc) =>
       quoteRepository.update(

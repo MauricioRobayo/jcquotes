@@ -6,7 +6,7 @@ const scraperStatusSchema = z.object({
   workflow_runs: z.array(
     z.object({
       conclusion: z.union([z.literal("success"), z.literal("failure")]),
-      create_at: z.string(),
+      created_at: z.string(),
       html_url: z.string(),
     })
   ),

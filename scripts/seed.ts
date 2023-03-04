@@ -36,7 +36,7 @@ async function seed(): Promise<void> {
   }
 }
 
-async function postQuote(quote: QuoteType) {
+async function postQuote(quote: Quote) {
   try {
     const { data } = await axios.post<{ id: string }>(
       `${process.env.API_URL}?key=${process.env.API_KEY}`,
