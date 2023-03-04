@@ -5,18 +5,16 @@ import { quoteKeys } from "./quote-keys";
 
 export function useRandomQuote() {
   const queryClient = useQueryClient();
-  return useQuery(
-    quoteKeys.random,
-    async () => {
+  return useQuery({
+    queryKey: quoteKeys.random,
+    queryFn: async () => {
       const { data } = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/random`
       );
       return quoteSchema.parse(data);
     },
-    {
-      onSuccess: (data) => {
-        queryClient.setQueryData(quoteKeys.details(data.clickToTweetId), data);
-      },
-    }
-  );
+    onSuccess: (data) => {
+      queryClient.setQueryData(quoteKeys.details(data.clickToTweetId), data);
+    },
+  });
 }
