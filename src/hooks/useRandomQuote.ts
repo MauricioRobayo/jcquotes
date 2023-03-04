@@ -6,7 +6,7 @@ import { quoteKeys } from "./quote-keys";
 export function useRandomQuote() {
   const queryClient = useQueryClient();
   return useQuery(
-    quoteKeys.random(),
+    quoteKeys.random,
     async () => {
       const { data } = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/random`

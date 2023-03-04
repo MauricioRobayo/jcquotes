@@ -1,7 +1,15 @@
 export const quoteKeys = {
-  all: ["quotes"],
-  status: () => [...quoteKeys.all, "status"],
-  random: () => [...quoteKeys.all, "random"],
-  detail: () => [...quoteKeys.all, "details"],
-  details: (id: string) => [...quoteKeys.detail(), id],
+  all: ["quotes"] as const,
+  get status() {
+    return [...this.all, "status"] as const;
+  },
+  get random() {
+    return [...this.all, "random"] as const;
+  },
+  get detail() {
+    return [...this.all, "details"] as const;
+  },
+  details(id: string) {
+    return [...this.detail, id] as const;
+  },
 };

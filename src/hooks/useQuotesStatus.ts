@@ -4,7 +4,7 @@ import { Status } from "../services/quotes";
 import { quoteKeys } from "./quote-keys";
 
 export function useQuotesStatus() {
-  return useQuery(quoteKeys.status(), async () => {
+  return useQuery(quoteKeys.status, async () => {
     const { data } = await axios.get<Status>(
       `${process.env.NEXT_PUBLIC_API_URL}/status`
     );
