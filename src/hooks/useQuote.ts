@@ -1,6 +1,6 @@
 import axios from "axios";
 import { quoteSchema } from "jcscraper/dist/schema";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { quoteKeys } from "./quote-keys";
 
 export function useQuote(id: string) {

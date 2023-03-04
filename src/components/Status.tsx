@@ -11,7 +11,7 @@ export function Status() {
     <>
       <div className="flex gap-1 items-center">
         Quotes so far:{" "}
-        {quotesStatusQuery.isIdle || quotesStatusQuery.isLoading ? (
+        {quotesStatusQuery.isLoading ? (
           <Spinner />
         ) : quotesStatusQuery.isError ? (
           "E!"
@@ -21,7 +21,7 @@ export function Status() {
       </div>
       <div className="flex gap-1 items-center">
         Scraper:{" "}
-        {scraperStatusQuery.isIdle || scraperStatusQuery.isLoading ? (
+        {scraperStatusQuery.isLoading ? (
           <Spinner />
         ) : scraperStatusQuery.isError ? (
           "E!"
