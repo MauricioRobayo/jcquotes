@@ -11,7 +11,6 @@ import { useQuote } from "../hooks/useQuote";
 import { useRandomQuote } from "../hooks/useRandomQuote";
 
 const QuotePage = () => {
-  console.log("rendering...");
   const router = useRouter();
   const {
     query: { id },
