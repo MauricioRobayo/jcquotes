@@ -2,7 +2,7 @@ import ErrorPage from "next/error";
 import { useRouter } from "next/router";
 import { useMemo } from "react";
 import { VscRefresh, VscTwitter } from "react-icons/vsc";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import Cite from "../components/Cite";
 import CtaButton, { CtaButtonProps } from "../components/CtaButton";
 import Quote from "../components/Quote";
@@ -11,7 +11,6 @@ import { useQuote } from "../hooks/useQuote";
 import { useRandomQuote } from "../hooks/useRandomQuote";
 
 const QuotePage = () => {
-  console.log("rendering...");
   const router = useRouter();
   const {
     query: { id },
@@ -68,7 +67,7 @@ const QuotePage = () => {
     return <ErrorPage statusCode={404} />;
   }
 
-  if (quoteQuery.isLoading || quoteQuery.isIdle) {
+  if (quoteQuery.isLoading) {
     return <QuoteLoader />;
   }
 

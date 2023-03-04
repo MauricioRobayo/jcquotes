@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { z } from "zod";
 
 const scraperStatusSchema = z.object({
@@ -12,10 +12,13 @@ const scraperStatusSchema = z.object({
   ),
 });
 export function useScraperStatus() {
-  return useQuery(["scraper", "status"], async () => {
-    const { data } = await axios.get(
-      "https://api.github.com/repos/MauricioRobayo/jcquotes/actions/workflows/scraper.yaml/runs"
-    );
-    return scraperStatusSchema.parse(data).workflow_runs[0];
+  return useQuery({
+    queryKey: ["scraper", "status"],
+    queryFn: async () => {
+      const { data } = await axios.get(
+        "https://api.github.com/repos/MauricioRobayo/jcquotes/actions/workflows/scraper.yaml/runs"
+      );
+      return scraperStatusSchema.parse(data).workflow_runs[0];
+    },
   });
 }
