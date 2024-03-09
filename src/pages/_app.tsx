@@ -15,10 +15,9 @@ const queryClient = new QueryClient({
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
-  usePagesViews();
   return (
     <>
-      <GoogleAnalytics />
+      <GoogleAnalytics trackPageViews />
       <QueryClientProvider client={queryClient}>
         <Layout>
           <Component {...pageProps} />
