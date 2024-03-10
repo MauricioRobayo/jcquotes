@@ -83,7 +83,7 @@ class QuoteService {
           return;
         }
 
-        return await this.create(quote);
+        return this.create(quote);
       });
 
       const postedQuotes = await Promise.all(promises);
@@ -93,7 +93,6 @@ class QuoteService {
       );
     } catch (err) {
       console.error(`Error getting clickToTweetRefs for '${url}':`, err);
-      return;
     }
   }
 
