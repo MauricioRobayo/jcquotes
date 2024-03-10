@@ -6,5 +6,5 @@ export const revalidate = 1;
 export async function RandomQuote() {
   const randomQuote = await quoteService.getRandom();
 
-  return <Quote quote={randomQuote} />;
+  return <Quote quote={randomQuote} showLink />;
 }

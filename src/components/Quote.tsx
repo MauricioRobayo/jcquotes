@@ -8,11 +8,13 @@ import type { Quote } from "jcscraper";
 import { VscTwitter } from "react-icons/vsc";
 import Blockquote from "./Blockquote";
 import QuoteContainer from "./QuoteContainer";
+import { IoUnlink } from "react-icons/io5";
 
 type QuoteProps = {
   quote: Quote;
+  showLink: boolean;
 };
-export function Quote({ quote }: QuoteProps) {
+export function Quote({ quote, showLink = false }: QuoteProps) {
   const tweet = () => {
     window.location.assign(
       `https://twitter.com/intent/tweet?text=${encodeURIComponent(
@@ -22,20 +24,17 @@ export function Quote({ quote }: QuoteProps) {
   };
   const quoteDate = getDateFromSource(quote.source);
 
-  const ctaButtons: (CtaButtonProps & { key: string })[] = [
-    {
-      children: <VscTwitter />,
-      onClick: tweet,
-      key: "twitter",
-    },
-  ];
-
   const citeLeft = <Link href={quote.source}>{quoteDate}</Link>;
   const citeRight = (
     <div className="flex items-center justify-center gap-6">
-      {ctaButtons.map(({ key, ...props }) => (
-        <CtaButton key={key} {...props} />
-      ))}
+      {showLink && (
+        <Link href={`/${quote.clickToTweetId}`} title="Permalink">
+          <IoUnlink />
+        </Link>
+      )}
+      <CtaButton onClick={tweet}>
+        <VscTwitter />
+      </CtaButton>
     </div>
   );
 
