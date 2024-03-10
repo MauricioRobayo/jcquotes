@@ -1,11 +1,12 @@
-import type { NextPage } from "next";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
+"use client";
+
 import { useQueryClient } from "@tanstack/react-query";
+import { useEffect } from "react";
 import QuoteLoader from "../components/QuoteLoader";
 import { useRandomQuote } from "../hooks/useRandomQuote";
+import { useRouter } from "next/navigation";
 
-const Home: NextPage = () => {
+export default function Page() {
   const queryClient = useQueryClient();
   const router = useRouter();
   const { data, isError } = useRandomQuote();
@@ -22,6 +23,4 @@ const Home: NextPage = () => {
   }
 
   return <QuoteLoader />;
-};
-
-export default Home;
+}

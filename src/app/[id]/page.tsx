@@ -1,20 +1,18 @@
-import ErrorPage from "next/error";
-import { useRouter } from "next/router";
+"use client";
+
+import Cite from "@/src/components/Cite";
+import CtaButton, { type CtaButtonProps } from "@/src/components/CtaButton";
+import Quote from "@/src/components/Quote";
+import QuoteLoader from "@/src/components/QuoteLoader";
+import { useQuote } from "@/src/hooks/useQuote";
+import { useRandomQuote } from "@/src/hooks/useRandomQuote";
+import { useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { useMemo } from "react";
 import { VscRefresh, VscTwitter } from "react-icons/vsc";
-import { useQueryClient } from "@tanstack/react-query";
-import Cite from "../components/Cite";
-import CtaButton, { CtaButtonProps } from "../components/CtaButton";
-import Quote from "../components/Quote";
-import QuoteLoader from "../components/QuoteLoader";
-import { useQuote } from "../hooks/useQuote";
-import { useRandomQuote } from "../hooks/useRandomQuote";
 
-const QuotePage = () => {
+export default function Page({ params: { id } }: { params: { id: string } }) {
   const router = useRouter();
-  const {
-    query: { id },
-  } = router;
   const queryClient = useQueryClient();
   const randomQuoteQuery = useRandomQuote();
   const quoteQuery = useQuote(typeof id === "string" ? id : "");
@@ -59,15 +57,11 @@ const QuotePage = () => {
     },
   ];
 
-  if (!router.isReady) {
-    return null;
+  if (quoteQuery.isError) {
+    return <div>Something unexpected Happened!</div>;
   }
 
-  if (quoteQuery.isError || quoteQuery.data === undefined) {
-    return <ErrorPage statusCode={404} />;
-  }
-
-  if (quoteQuery.isLoading) {
+  if (quoteQuery.isLoading || quoteQuery.data === undefined) {
     return <QuoteLoader />;
   }
 
@@ -89,6 +83,4 @@ const QuotePage = () => {
       ))}
     </Quote>
   );
-};
-
-export default QuotePage;
+}

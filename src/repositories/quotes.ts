@@ -11,8 +11,8 @@ const defaultProjection = { _id: 0 };
 
 export class QuoteRepository {
   private readonly collection: Collection<Quote>;
-  constructor(private readonly client: MongoClient) {
-    this.collection = this.client.db("jc-quotes").collection<Quote>("quotes");
+  constructor(client: MongoClient) {
+    this.collection = client.db("jc-quotes").collection<Quote>("quotes");
   }
 
   update(filter: Filter<Quote>, update: UpdateFilter<Quote>) {

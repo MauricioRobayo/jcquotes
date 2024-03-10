@@ -4,7 +4,10 @@ import {
   scrapeClickToTweetRefs,
   scrapeQuote,
 } from "jcscraper";
-import { QuoteRepository, quoteRepository } from "../repositories/quotes";
+import {
+  QuoteRepository,
+  quoteRepository as quoteRepositoryInstance,
+} from "../repositories/quotes";
 
 const dateFormatter = new Intl.DateTimeFormat("en-US", {
   day: "numeric",
@@ -17,7 +20,7 @@ export interface Status {
   totalQuotes: number;
 }
 class QuoteService {
-  constructor(private quoteRepository: QuoteRepository) {}
+  constructor(private readonly quoteRepository: QuoteRepository) {}
 
   async getStatus(): Promise<Status> {
     const [latestQuote, quotesCount] = await Promise.all([
@@ -106,4 +109,4 @@ class QuoteService {
   }
 }
 
-export const quoteService = new QuoteService(quoteRepository);
+export const quoteService = new QuoteService(quoteRepositoryInstance);
