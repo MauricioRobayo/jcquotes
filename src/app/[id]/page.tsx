@@ -1,5 +1,7 @@
 "use client";
 
+import "@/src/styles/globals.css";
+
 import Cite from "@/src/components/Cite";
 import CtaButton, { type CtaButtonProps } from "@/src/components/CtaButton";
 import Quote from "@/src/components/Quote";

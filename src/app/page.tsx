@@ -2,9 +2,9 @@
 
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
-import QuoteLoader from "../components/QuoteLoader";
-import { useRandomQuote } from "../hooks/useRandomQuote";
 import { useRouter } from "next/navigation";
+import QuoteLoader from "@/src/components/QuoteLoader";
+import { useRandomQuote } from "@/src/hooks/useRandomQuote";
 
 export default function Page() {
   const queryClient = useQueryClient();

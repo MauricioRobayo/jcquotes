@@ -30,21 +30,19 @@ type LayoutProps = {
 export default function Layout({ children }: LayoutProps) {
   return (
     <html lang="en">
-      <body>
+      <body
+        className={twJoin(
+          nunitoSans.variable,
+          crimsonProp.variable,
+          "text-gold-2 dark:text-gold-0 dark:bg-gold-4 font-sans flex flex-col h-screen justify-between"
+        )}
+      >
         <Providers>
-          <div
-            className={twJoin(
-              nunitoSans.variable,
-              crimsonProp.variable,
-              "font-sans flex flex-col h-screen justify-between"
-            )}
-          >
-            <div>
-              <Header />
-              <main className="flex justify-center">{children}</main>
-            </div>
-            <Footer />
+          <div>
+            <Header />
+            <main className="flex justify-center">{children}</main>
           </div>
+          <Footer />
         </Providers>
       </body>
     </html>
