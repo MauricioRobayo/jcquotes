@@ -1,6 +1,6 @@
 import { Status } from "./Status";
 
-const Footer = () => {
+function Footer() {
   return (
     <div className="text-sm flex flex-col gap-2 items-center p-8">
       <p>
@@ -14,6 +14,6 @@ const Footer = () => {
       </p>
     </div>
   );
-};
+}
 
 export default Footer;

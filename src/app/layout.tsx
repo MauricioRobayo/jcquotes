@@ -1,10 +1,9 @@
-import "@/src/styles/globals.css";
-import { ReactNode } from "react";
-import { Nunito_Sans, Crimson_Pro } from "next/font/google";
 import Footer from "@/src/components/Footer";
 import Header from "@/src/components/Header";
+import "@/src/styles/globals.css";
+import { Crimson_Pro, Nunito_Sans } from "next/font/google";
+import { ReactNode } from "react";
 import { twJoin } from "tailwind-merge";
-import Providers from "@/src/app/providers";
 
 const nunitoSans = Nunito_Sans({
   subsets: ["latin"],
@@ -37,13 +36,11 @@ export default function Layout({ children }: LayoutProps) {
           "text-gold-2 dark:text-gold-0 dark:bg-gold-4 font-sans flex flex-col h-screen justify-between"
         )}
       >
-        <Providers>
-          <div className="grow">
-            <Header />
-            <main className="flex justify-center">{children}</main>
-          </div>
-          <Footer />
-        </Providers>
+        <div className="grow">
+          <Header />
+          <main className="flex justify-center">{children}</main>
+        </div>
+        <Footer />
       </body>
     </html>
   );
