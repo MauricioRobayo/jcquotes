@@ -13,7 +13,7 @@ const Home: NextPage = () => {
   useEffect(() => {
     if (data) {
       router.replace(`/${data.clickToTweetId}`);
-      queryClient.invalidateQueries(["quotes", "random"]);
+      queryClient.invalidateQueries({ queryKey: ["quotes", "random"] });
     }
   }, [data, router, queryClient]);
 

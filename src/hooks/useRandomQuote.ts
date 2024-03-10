@@ -11,10 +11,8 @@ export function useRandomQuote() {
       const { data } = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/random`
       );
-      return quoteSchema.parse(data);
-    },
-    onSuccess: (data) => {
       queryClient.setQueryData(quoteKeys.details(data.clickToTweetId), data);
+      return quoteSchema.parse(data);
     },
   });
 }

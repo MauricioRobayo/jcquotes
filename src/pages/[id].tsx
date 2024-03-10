@@ -29,7 +29,7 @@ const QuotePage = () => {
   const refresh = () => {
     if (randomQuoteQuery.data) {
       router.push(`/${randomQuoteQuery.data.clickToTweetId}`);
-      queryClient.invalidateQueries(["quotes", "random"]);
+      queryClient.invalidateQueries({ queryKey: ["quotes", "random"] });
     }
   };
   const tweet = () => {
@@ -63,7 +63,7 @@ const QuotePage = () => {
     return null;
   }
 
-  if (quoteQuery.isError) {
+  if (quoteQuery.isError || quoteQuery.data === undefined) {
     return <ErrorPage statusCode={404} />;
   }
 

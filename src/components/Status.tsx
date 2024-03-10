@@ -4,40 +4,53 @@ import { useScraperStatus } from "../hooks/useScraperStatus";
 import { Spinner } from "./Spinner";
 
 export function Status() {
-  const scraperStatusQuery = useScraperStatus();
-  const quotesStatusQuery = useQuotesStatus();
-
   return (
     <>
       <div className="flex gap-1 items-center">
-        Quotes so far:{" "}
-        {quotesStatusQuery.isLoading ? (
-          <Spinner />
-        ) : quotesStatusQuery.isError ? (
-          "E!"
-        ) : (
-          quotesStatusQuery.data.totalQuotes
-        )}
+        Quotes so far: <QuoteStatus />
       </div>
       <div className="flex gap-1 items-center">
-        Scraper:{" "}
-        {scraperStatusQuery.isLoading ? (
-          <Spinner />
-        ) : scraperStatusQuery.isError ? (
-          "E!"
-        ) : (
-          <>
-            <a href={scraperStatusQuery.data.html_url}>
-              {new Date(scraperStatusQuery.data.created_at).toISOString()}
-            </a>
-            {scraperStatusQuery.data.conclusion === "success" ? (
-              <AiOutlineCheckCircle />
-            ) : (
-              <AiOutlineCloseCircle />
-            )}
-          </>
-        )}
+        Scraper: <ScraperStatus />
       </div>
+    </>
+  );
+}
+
+function QuoteStatus() {
+  const quotesStatusQuery = useQuotesStatus();
+
+  if (quotesStatusQuery.isLoading) {
+    return <Spinner />;
+  }
+
+  if (quotesStatusQuery.isError || quotesStatusQuery.data === undefined) {
+    return "E!";
+  }
+
+  return quotesStatusQuery.data.totalQuotes;
+}
+
+function ScraperStatus() {
+  const scraperStatusQuery = useScraperStatus();
+
+  if (scraperStatusQuery.isLoading) {
+    return <Spinner />;
+  }
+
+  if (scraperStatusQuery.isError || scraperStatusQuery.data === undefined) {
+    return "E!";
+  }
+
+  return (
+    <>
+      <a href={scraperStatusQuery.data.html_url}>
+        {new Date(scraperStatusQuery.data.created_at).toISOString()}
+      </a>
+      {scraperStatusQuery.data.conclusion === "success" ? (
+        <AiOutlineCheckCircle />
+      ) : (
+        <AiOutlineCloseCircle />
+      )}
     </>
   );
 }
