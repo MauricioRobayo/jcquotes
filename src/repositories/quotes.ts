@@ -47,11 +47,14 @@ export class QuoteRepository {
     );
   }
 
-  getLatest(): Promise<Quote | null> {
-    return this.collection.findOne(
-      {},
-      { sort: [["_id", "desc"]], projection: defaultProjection }
-    );
+  getTotalQuotes() {
+    return this.collection.countDocuments();
+  }
+
+  getLatestQuotes(): Promise<Quote[]> {
+    return this.collection
+      .find({}, { sort: [["_id", "desc"]], limit: 25 })
+      .toArray();
   }
 
   getCount() {

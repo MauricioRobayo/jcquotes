@@ -1,9 +1,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@layer base {
-  a {
-    @apply font-bold underline underline-offset-4 decoration-gold-1 dark:decoration-gold-3 decoration-4;
-  }
-}

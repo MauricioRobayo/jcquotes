@@ -2,12 +2,12 @@ import { ScraperStatus } from "@/src/components/ScraperStatus";
 import { quoteService } from "@/src/services/quotes";
 
 export async function Status() {
-  const quoteStatus = await quoteService.getStatus();
+  const totalQuotes = await quoteService.getTotalQuotes();
 
   return (
     <>
       <div className="flex gap-1 items-center">
-        Quotes so far: {quoteStatus.totalQuotes}
+        Quotes so far: {totalQuotes}
       </div>
       <div className="flex gap-1 items-center">
         Scraper: <ScraperStatus />

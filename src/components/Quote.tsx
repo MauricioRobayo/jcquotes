@@ -6,6 +6,8 @@ import type { Quote } from "jcscraper";
 import { VscRefresh, VscTwitter } from "react-icons/vsc";
 import Blockquote from "./Blockquote";
 import QuoteContainer from "./QuoteContainer";
+import { getDateFromSource } from "@/src/helpers/date";
+import { Link } from "@/src/components/Link";
 
 type QuoteProps = {
   quote: Quote;
@@ -18,10 +20,7 @@ export function Quote({ quote }: QuoteProps) {
       )}`
     );
   };
-  const date = Date.parse(quote.source.replace(/.*\//, ""));
-  const quoteDate = new Intl.DateTimeFormat("en-US", {
-    dateStyle: "long",
-  }).format(date);
+  const quoteDate = getDateFromSource(quote.source);
 
   const ctaButtons: (CtaButtonProps & { key: string })[] = [
     {
@@ -36,7 +35,7 @@ export function Quote({ quote }: QuoteProps) {
     },
   ];
 
-  const citeLeft = <a href={quote.source}>{quoteDate}</a>;
+  const citeLeft = <Link href={quote.source}>{quoteDate}</Link>;
   const citeRight = (
     <div className="flex items-center justify-center gap-6">
       {ctaButtons.map(({ key, ...props }) => (

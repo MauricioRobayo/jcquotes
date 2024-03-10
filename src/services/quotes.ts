@@ -15,22 +15,12 @@ const dateFormatter = new Intl.DateTimeFormat("en-US", {
   year: "numeric",
   timeZone: "UTC",
 });
-export interface Status {
-  latestQuote: Quote | null;
-  totalQuotes: number;
-}
 class QuoteService {
   constructor(private readonly quoteRepository: QuoteRepository) {}
 
-  async getStatus(): Promise<Status> {
-    const [latestQuote, quotesCount] = await Promise.all([
-      this.quoteRepository.getLatest(),
-      this.quoteRepository.getCount(),
-    ]);
-    return {
-      totalQuotes: quotesCount,
-      latestQuote,
-    };
+  async getTotalQuotes(): Promise<number> {
+    const totalQuotes = await this.quoteRepository.getTotalQuotes();
+    return totalQuotes;
   }
 
   create(quote: Quote): Promise<string> {
@@ -45,9 +35,13 @@ class QuoteService {
     return this.quoteRepository.getRandom();
   }
 
+  getLatestQuotes(): Promise<Quote[]> {
+    return this.quoteRepository.getLatestQuotes();
+  }
+
   async scrapeNewQuotes() {
     const THURSDAY = 4;
-    const lastQuote = await this.quoteRepository.getLatest();
+    const [lastQuote] = await this.quoteRepository.getLatestQuotes();
     if (!lastQuote) {
       return null;
     }
