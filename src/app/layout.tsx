@@ -38,7 +38,7 @@ export default function Layout({ children }: LayoutProps) {
         )}
       >
         <Providers>
-          <div>
+          <div className="grow">
             <Header />
             <main className="flex justify-center">{children}</main>
           </div>
