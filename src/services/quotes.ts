@@ -69,27 +69,32 @@ class QuoteService {
     const baseUrl = newsletterBaseUrl.replace(/\/+$/, "");
     const url = `${baseUrl}/${QuoteService.formatDate(date)}`;
     console.log(`Getting clickToTweetIds for '${url}' ...`);
-    const clickToTweetRefs = await scrapeClickToTweetRefs(url);
-    console.log(`Found ${clickToTweetRefs.length} clickToTweetRefs.`);
-    console.log(`Getting quotes...`);
-    const promises = clickToTweetRefs.map(async (clickToTweetRef) => {
-      const quote = await scrapeQuote(clickToTweetRef);
+    try {
+      const clickToTweetRefs = await scrapeClickToTweetRefs(url);
+      console.log(`Found ${clickToTweetRefs.length} clickToTweetRefs.`);
+      console.log(`Getting quotes...`);
+      const promises = clickToTweetRefs.map(async (clickToTweetRef) => {
+        const quote = await scrapeQuote(clickToTweetRef);
 
-      if ("error" in quote) {
-        console.log(
-          `Could not get quote for clickToTweetId '${clickToTweetRef.id}'. ${quote.error}`
-        );
-        return;
-      }
+        if ("error" in quote) {
+          console.log(
+            `Could not get quote for clickToTweetId '${clickToTweetRef.id}'. ${quote.error}`
+          );
+          return;
+        }
 
-      return await this.create(quote);
-    });
+        return await this.create(quote);
+      });
 
-    const postedQuotes = await Promise.all(promises);
-    console.log(
-      `Inserted ${postedQuotes.length} new quotes:`,
-      JSON.stringify(postedQuotes, null, 2)
-    );
+      const postedQuotes = await Promise.all(promises);
+      console.log(
+        `Inserted ${postedQuotes.length} new quotes:`,
+        JSON.stringify(postedQuotes, null, 2)
+      );
+    } catch (err) {
+      console.error(`Error getting clickToTweetRefs for '${url}':`, err);
+      return;
+    }
   }
 
   static formatDate(date: Date): string {
