@@ -2,12 +2,12 @@
 
 import Cite from "@/src/components/Cite";
 import CtaButton, { type CtaButtonProps } from "@/src/components/CtaButton";
+import { Link } from "@/src/components/Link";
+import { getDateFromSource } from "@/src/helpers/date";
 import type { Quote } from "jcscraper";
-import { VscRefresh, VscTwitter } from "react-icons/vsc";
+import { VscTwitter } from "react-icons/vsc";
 import Blockquote from "./Blockquote";
 import QuoteContainer from "./QuoteContainer";
-import { getDateFromSource } from "@/src/helpers/date";
-import { Link } from "@/src/components/Link";
 
 type QuoteProps = {
   quote: Quote;
@@ -23,11 +23,6 @@ export function Quote({ quote }: QuoteProps) {
   const quoteDate = getDateFromSource(quote.source);
 
   const ctaButtons: (CtaButtonProps & { key: string })[] = [
-    {
-      children: <VscRefresh />,
-      onClick: () => null,
-      key: "refresh",
-    },
     {
       children: <VscTwitter />,
       onClick: tweet,

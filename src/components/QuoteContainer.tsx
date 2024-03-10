@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import cn from "clsx";
+import { twMerge } from "tailwind-merge";
 
 type QuoteContainerProps = {
   children: ReactNode;
@@ -8,7 +8,7 @@ type QuoteContainerProps = {
 const QuoteContainer = ({ children, className = "" }: QuoteContainerProps) => {
   const defaultClassName = "max-w-sm w-full mx-4";
 
-  return <div className={cn(defaultClassName, className)}>{children}</div>;
+  return <div className={twMerge(defaultClassName, className)}>{children}</div>;
 };
 
 export default QuoteContainer;
