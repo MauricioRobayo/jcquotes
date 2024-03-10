@@ -32,7 +32,6 @@ export default function Layout({ children }: LayoutProps) {
     <html lang="en">
       <body>
         <Providers>
-          ˝
           <div
             className={twJoin(
               nunitoSans.variable,
