@@ -3,6 +3,8 @@ import { RandomQuote } from "@/src/components/RandomQuote";
 import { getDateFromSource } from "@/src/helpers/date";
 import { quoteService } from "@/src/services/quotes";
 
+export const revalidate = 86400; // 24 hours
+
 export default async function Page() {
   const allQuotes = await quoteService.getLatestQuotes();
 

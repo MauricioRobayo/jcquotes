@@ -21,7 +21,7 @@ export default async function Page({
     <Quote
       quote={quote}
       actions={[
-        <Link href="/" aria-label="New random quote">
+        <Link href="/" aria-label="New random quote" key="refresh">
           <IoSync />
         </Link>,
       ]}

@@ -1,14 +1,14 @@
 "use client";
 
 import Cite from "@/src/components/Cite";
-import CtaButton, { type CtaButtonProps } from "@/src/components/CtaButton";
+import CtaButton from "@/src/components/CtaButton";
 import { Link } from "@/src/components/Link";
 import { getDateFromSource } from "@/src/helpers/date";
 import type { Quote } from "jcscraper";
+import { Fragment, type ReactNode } from "react";
 import { VscTwitter } from "react-icons/vsc";
 import Blockquote from "./Blockquote";
 import QuoteContainer from "./QuoteContainer";
-import { Fragment, type ReactNode } from "react";
 
 type QuoteProps = {
   quote: Quote;

@@ -62,6 +62,7 @@ export function RandomQuote() {
           href={`/${randomQuote.clickToTweetId}`}
           title="Open quote"
           aria-label="Open quote"
+          key="open-quote"
         >
           <IoLinkOutline />
         </Link>,
@@ -69,6 +70,7 @@ export function RandomQuote() {
           onClick={onRefreshClick}
           aria-label="Refresh quote"
           title="Refresh quote"
+          key="refresh"
         >
           <IoSync className={status === "refreshing" ? "animate-spin" : ""} />
         </button>,
