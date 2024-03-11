@@ -36,7 +36,7 @@ export default function Layout({ children }: LayoutProps) {
           "text-gold-2 dark:text-gold-0 dark:bg-gold-4 font-sans flex flex-col h-screen justify-between"
         )}
       >
-        <div className="grow">
+        <div className="grow px-4">
           <Header />
           <main className="flex justify-center">{children}</main>
         </div>

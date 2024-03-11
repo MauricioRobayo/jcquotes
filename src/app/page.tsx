@@ -1,18 +1,14 @@
 import { Link } from "@/src/components/Link";
-import QuoteLoader from "@/src/components/QuoteLoader";
 import { RandomQuote } from "@/src/components/RandomQuote";
 import { getDateFromSource } from "@/src/helpers/date";
 import { quoteService } from "@/src/services/quotes";
-import { Suspense } from "react";
 
 export default async function Page() {
   const allQuotes = await quoteService.getLatestQuotes();
 
   return (
-    <div className="flex flex-col gap-4">
-      <Suspense fallback={<QuoteLoader />}>
-        <RandomQuote />
-      </Suspense>
+    <div className="flex flex-col gap-4 justify-center align-center">
+      <RandomQuote />
       <h2>Latest Quotes</h2>
       <ul className="flex flex-col max-w-md gap-2">
         {allQuotes.map((quote) => (
@@ -21,7 +17,7 @@ export default async function Page() {
               {getDateFromSource(quote.source)}
             </div>
             <Link
-              className="w-full truncate text-lg no-underline hover:underline font-normal"
+              className="w-full truncate text-lg no-underline hover:underline font-normal font-serif"
               href={`/${quote.clickToTweetId}`}
             >
               {quote.text}

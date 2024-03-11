@@ -6,7 +6,7 @@ type QuoteContainerProps = {
   className?: string;
 };
 const QuoteContainer = ({ children, className = "" }: QuoteContainerProps) => {
-  const defaultClassName = "max-w-sm w-full mx-4";
+  const defaultClassName = "max-w-md w-full";
 
   return <div className={twMerge(defaultClassName, className)}>{children}</div>;
 };
