@@ -1,4 +1,5 @@
 import Footer from "@/src/components/Footer";
+import NextTopLoader from "nextjs-toploader";
 import Header from "@/src/components/Header";
 import "@/src/styles/globals.css";
 import { Crimson_Pro, Nunito_Sans } from "next/font/google";
@@ -36,6 +37,7 @@ export default function Layout({ children }: LayoutProps) {
           "text-gold-2 dark:text-gold-0 dark:bg-gold-4 font-sans flex flex-col h-screen justify-between"
         )}
       >
+        <NextTopLoader color="#5e5b55" />
         <div className="grow px-4">
           <Header />
           <main className="flex justify-center">{children}</main>
