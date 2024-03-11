@@ -8,7 +8,6 @@ import type { Quote } from "jcscraper";
 import { Fragment, type ReactNode } from "react";
 import { VscTwitter } from "react-icons/vsc";
 import Blockquote from "./Blockquote";
-import QuoteContainer from "./QuoteContainer";
 
 type QuoteProps = {
   quote: Quote;
@@ -38,15 +37,13 @@ export function Quote({ quote, actions = [] }: QuoteProps) {
 
   const cite = <Cite left={citeLeft} right={citeRight} />;
   return (
-    <QuoteContainer>
-      <figure>
-        <Blockquote>
-          {quote.text.split("\n").map((p, i) => (
-            <p key={i}>{p}</p>
-          ))}
-        </Blockquote>
-        <figcaption>{cite}</figcaption>
-      </figure>
-    </QuoteContainer>
+    <figure>
+      <Blockquote>
+        {quote.text.split("\n").map((p, i) => (
+          <p key={i}>{p}</p>
+        ))}
+      </Blockquote>
+      <figcaption>{cite}</figcaption>
+    </figure>
   );
 }

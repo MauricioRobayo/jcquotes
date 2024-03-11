@@ -1,6 +1,6 @@
 import Footer from "@/src/components/Footer";
 import NextTopLoader from "nextjs-toploader";
-import Header from "@/src/components/Header";
+import { Header } from "@/src/components/Header";
 import "@/src/styles/globals.css";
 import { Crimson_Pro, Nunito_Sans } from "next/font/google";
 import { ReactNode } from "react";
@@ -40,7 +40,9 @@ export default function Layout({ children }: LayoutProps) {
         <NextTopLoader color="#5e5b55" />
         <div className="grow px-4">
           <Header />
-          <main className="flex justify-center">{children}</main>
+          <main className="flex flex-col gap-4 justify-center w-full mx-auto max-w-md">
+            {children}
+          </main>
         </div>
         <Footer />
       </body>
