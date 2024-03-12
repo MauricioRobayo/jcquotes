@@ -1,5 +1,5 @@
 import Footer from "@/src/components/Footer";
-import { GoogleTagManager } from "@next/third-parties/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import NextTopLoader from "nextjs-toploader";
 import { Header } from "@/src/components/Header";
 import "@/src/styles/globals.css";
@@ -19,7 +19,7 @@ const crimsonProp = Crimson_Pro({
   weight: ["300"],
 });
 
-const gtmId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
 export const metadata = {
   title: "James Clear Quotes",
@@ -49,7 +49,7 @@ export default function Layout({ children }: LayoutProps) {
         </div>
         <Footer />
       </body>
-      {gtmId && <GoogleTagManager gtmId={gtmId} />}
+      {gaId && <GoogleAnalytics gaId={gaId} />}
     </html>
   );
 }
